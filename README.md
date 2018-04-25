@@ -1,11 +1,10 @@
 # Tool for Raster data EXploration
 
-
 **Content**:
-1. Introduction to the Tool
-2. Installation 
-3. Tool's structure
-4. ProbaV setup file
+# 1. Intro
+# 2. Installation 
+# 3. Tool's structure
+# 4. ProbaV setup file
 
 # 1. Intro
 ---
@@ -28,27 +27,25 @@ Pixels of ProbaV images after reprojecting from orginal degree units into metric
 # 2. Installation
 ---
 The easiest way to set up the tool is to install [Anaconda](https://www.anaconda.com/download/) for Python 2.7. Anaconda provides [Spyder](https://pythonhosted.org/spyder/) Python environment, manages the installation of Python packages and handles enviromental variables for Windows. The table below specifies which version of Python packages were used for scripts development and should be installed before running the script:
-|#| name | 	version |
-|--|------------|-|
-|1 | gdal       |2.0.0|
-|2 | pandas     |0.20.1|
-|3 | numpy      |1.12.1|
-|4 | matplotlib |2.0.2|
-|5 | IPython    |5.4.1|
-|6 | shutil     |1.0.0|
-|7 | os         |2.7.12|
-|8 | sys        |2.7.12|
-|9 | ftplib     |2.7.12|
+ #| name       | 	version
+--|------------|-
+1 | gdal       |2.0.0
+2 | pandas     |0.20.1
+3 | numpy      |1.12.1
+4 | matplotlib |2.0.2
+5 | IPython    |5.4.1
+6 | shutil     |1.0.0
+7 | os         |2.7.12
+8 | sys        |2.7.12
+9 | ftplib     |2.7.12
+
 More recent version of listed packages should be still compatible.
 
-test|test|test
------|-----|-----
-
-# 3. Tool structure
+# 3. Tool's structure
 ---
 Tool's folder has a fixed structure that has to be respected and never modified, unless those changes are fully intended. Tool consists of three scripts written in Python 2.7, setup text file, folder with temporal data and folders containing input or output data. Scripts do not interact with each other but saves and reads data from different folders. User through "LAI_ProbaV_setup.txt" file can specify which of type input or output scripts will read and process. Each script should be run seperetely using [Spyder](https://pythonhosted.org/spyder/) Python environment. 
 ![ Graph.1 Structure ](https://github.com/JoannaSuliga/TREX/blob/master/structure.JPG)
-#### Input data
+### Input data
 There are three types of input data for the tool:
 * **Reference raster**
 
@@ -60,7 +57,7 @@ This map is a shapefile .shp that containts points of interest. Coordinates of t
 
 ProbaV is a small satellite launched by ESA and managed by VITO that provides almost daily NDVI maps at 100m, 300m and 1km spatial resolution. ProbaV images can be requested (for free) through [VITO Earth Observation portal](https://www.vito-eodata.be/PDF/portal/Application.html#Home). Order should *always* contain two types of images: NDVI maps and SM (status maps) at .tif format delivered using ftp server. Downloading images from the ftp server is handled by the first script *1_LAI_ProbaV_download.py*.
 
-#### Scripts
+### Scripts
 They are three main scripts:
 * **1_LAI_ProbaV_download.py**
 
@@ -76,35 +73,35 @@ Third script is focused on producing secondary outputs (more in chapter 4) times
 # 4. ProbaV setup file
 ---
 
-Interactions & dependencies 
+*LAI_ProbaV_setup.txt* is a key file to control 
 
 They are 14 possible functions (divided into *Input* and *Output Controls*) of the script that can be either switch on or off. 
 DEPENDECIES GRAPH
 ![ Graph.2 Module dependencies ](https://github.com/JoannaSuliga/TREX/blob/master/dependencies.JPG)
 
 = = = INPUT DATA = = = = = = = = = = = = = = = =
-|#| name | 	value (defined by user) |
-|-|-|-|
-|[1]|Reference raster|biebrza_30_utm.tif|
-|[2]|Extraction points|points.shp|
-|[3]|Cloud fraction|0.5|
-[4]|Wipe out memory|1
+   #| name             | value (defined by user)
+----|------------------|---------
+[1] |Reference raster  |biebrza_30_utm.tif
+[2] |Extraction points |points.shp
+[3] |Cloud fraction    |0.5
+[4] |Wipe out memory   |1
 = = = PRIMARY OUTPUT from 2_LAI_ProbaV_processing.py) = = =
-|#| name | value (defined by user) 
--|-|-
-[5]|NDVI.tif maps|1
-[6]|LAI.tif maps|1
-[7]|LAI.asc maps|1
-[8]|Monthly LAI.tif maps|1
-[9]|Monthly LAI.asc maps|1
-[10]|WETSPA format|1
+   #| name             | value (defined by user)
+----|------------------|---------
+[5] |NDVI.tif maps     |1
+[6] |LAI.tif maps      |1
+[7] |LAI.asc maps      |1
+[8] |Monthly LAI.tif maps|1
+[9] |Monthly LAI.asc maps|1
+[10]|WETSPA format    |1
 = = = SECONDARY OUTPUT from 3_LAI_ProbaV_visualization.py) = = =
-|#| name | 	value (defined by user) |
-|-|-|-|
-|[11]|LAI.jpg|1|
-|[12]|monthly LAI.jpg|1|
-|[13]|LAI timeseries.csv|1|
-|[14]|LAI timeseries.jpg|1|
+   #| name             | value (defined by user)
+----|------------------|---------
+[11]|LAI.jpg           |1
+[12]|monthly LAI.jpg   |1
+[13]|LAI timeseries.csv|1
+[14]|LAI timeseries.jpg|1
 
 This file defines settings nessesary to run the core script of "Tools for Raster data EXploration". The first section cointains a table with three columns:
 "#" (number of item), "name" (name of the element) and "value" (defined by user). The last column can be edited by the User. Valid values are:
