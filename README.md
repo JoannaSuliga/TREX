@@ -41,6 +41,9 @@ The easiest way to set up the tool is to install [Anaconda](https://www.anaconda
 |9 | ftplib     |2.7.12|
 More recent version of listed packages should be still compatible.
 
+test|test|test
+-----|-----|-----
+
 # 3. Tool structure
 ---
 Tool's folder has a fixed structure that has to be respected and never modified, unless those changes are fully intended. Tool consists of three scripts written in Python 2.7, setup text file, folder with temporal data and folders containing input or output data. Scripts do not interact with each other but saves and reads data from different folders. User through "LAI_ProbaV_setup.txt" file can specify which of type input or output scripts will read and process. Each script should be run seperetely using [Spyder](https://pythonhosted.org/spyder/) Python environment. 
