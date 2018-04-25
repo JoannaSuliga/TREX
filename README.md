@@ -44,7 +44,7 @@ More recent version of listed packages should be still compatible.
 # 3. Tool structure
 ---
 Tool's folder has a fixed structure that has to be respected and never modified, unless those changes are fully intended. Tool consists of three scripts written in Python 2.7, setup text file, folder with temporal data and folders containing input or output data. Scripts do not interact with each other but saves and reads data from different folders. User through "LAI_ProbaV_setup.txt" file can specify which of type input or output scripts will read and process. Each script should be run seperetely using [Spyder](https://pythonhosted.org/spyder/) Python environment. 
-![ Graph.1 Structure ](https://github.com/JoannaSuliga/TREX/blob/master/dependencies.JPG)
+![ Graph.1 Structure ](https://github.com/JoannaSuliga/TREX/blob/master/structure.JPG)
 #### Input data
 There are three types of input data for the tool:
 * **Reference raster**
@@ -77,7 +77,7 @@ Interactions & dependencies
 
 They are 14 possible functions (divided into *Input* and *Output Controls*) of the script that can be either switch on or off. 
 DEPENDECIES GRAPH
-![ Graph.2 Module dependencies ](./dependencies.jpg)
+![ Graph.2 Module dependencies ](https://github.com/JoannaSuliga/TREX/blob/master/dependencies.JPG)
 
 = = = INPUT DATA = = = = = = = = = = = = = = = =
 |#| name | 	value (defined by user) |
@@ -121,16 +121,17 @@ Algorithm will discard any image that has more than certain % of invalid pixels 
 0.95 = maximum 95% of all pixels is invalid (clouded)
 0.05 = maximum 5% of all pixels is invalid (clear)
 
-#### [4] Wipe out memory
-#### [5] NDVI.tif maps
-#### [6] LAI.tif maps
-#### [7] LAI.asc maps
-#### [8] Monthly LAI.tif maps
-#### [9] Monthly LAI.asc maps
-#### [10] WETSPA format
-#### [11] LAI.jpg
-#### [12] monthly LAI.jpg
-#### [13] LAI timeseries.csv	
-#### [14] LAI timeseries.jpg
 
+#### [4 - 13] Value type: binary. Set 1 for yes (true) and 0 for no (false).
+
+[4] Step 1: Clear directories?             Yes(1) or No(0)
+[5] Step 2: Generate NDVI.tif maps?        Yes(1) or No(0)
+[6] Step 3: Generate LAI.tif maps?         Yes(1) or No(0)
+[7] Step 4: Generate LAI.asc maps?         Yes(1) or No(0)
+[8] Step 5: Generate monthly LAI.tif maps? Yes(1) or No(0)
+[9] Step 6: Generate monthly LAI.asc maps? Yes(1) or No(0)
+[10] Step 7: Generate WETSPA input?        Yes(1) or No(0)
+[11] Step 8: Generate LAI.jpg?             Yes(1) or No(0)
+[12] Step 9: Generate monthly LAI.jpg?     Yes(1) or No(0)
+[13] Step 10: Generate LAI timeseries?     Yes(1) or No(0)
 
