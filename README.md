@@ -1,4 +1,4 @@
-# TREX
+# Tool for Raster data EXploration
 
 
 **Content**:
