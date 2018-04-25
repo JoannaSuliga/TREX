@@ -1,0 +1,136 @@
+# TREX
+
+
+**Content**:
+1. Introduction to the Tool
+2. Installation 
+3. Tool's structure
+4. ProbaV setup file
+
+# 1. Intro
+---
+Tool for Raster data EXploration has various application, however the main objective is to automatically process ProbaV sattelite images into timeseries of Leaf Area Index and challenge the negative impact of cloud coverege on optical sattelite data. As long as satelite can provide images for selected study area, this tool is flexible enough to process data:
+* for any period of time,
+* for any study area,
+* into any projection system...
+* or any spatial resolution
+
+Pixels of ProbaV images after reprojecting from orginal degree units into metric system are reshaped into rectangulars, thus hindering their use for multispatial analysis. Through the improved utilization of GDAL software and programming in Python 2.7, this tool can, based on initial user input, automatically check radiometric quality, select cloudless images, reproject, resample, clip and adjust NDVI products of 100m ProbaV images. After specifying the reference raster or shapefile this tool can produce:
+* NDVI raster maps at .tif format for each input image
+* monhtly NDVI raster maps at .tif or .asc format
+* LAI raster maps at .tif or .asc format for each input image
+* monhtly LAI raster maps at .tif or .asc format
+* interpolated raster LAI maps at .asc format
+* color representation of LAI maps at .jpg format
+* LAI timeseries exracted for specific points at .csv format
+* color representation of LAI timeseries at .jpg format
+
+# 2. Installation
+---
+The easiest way to set up the tool is to install [Anaconda](https://www.anaconda.com/download/) for Python 2.7. Anaconda provides [Spyder](https://pythonhosted.org/spyder/) Python environment, manages the installation of Python packages and handles enviromental variables for Windows. The table below specifies which version of Python packages were used for scripts development and should be installed before running the script:
+|#| name | 	version |
+|--|------------|-|
+|1 | gdal       |2.0.0|
+|2 | pandas     |0.20.1|
+|3 | numpy      |1.12.1|
+|4 | matplotlib |2.0.2|
+|5 | IPython    |5.4.1|
+|6 | shutil     |1.0.0|
+|7 | os         |2.7.12|
+|8 | sys        |2.7.12|
+|9 | ftplib     |2.7.12|
+More recent version of listed packages should be still compatible.
+
+# 3. Tool structure
+---
+Tool's folder has a fixed structure that has to be respected and never modified, unless those changes are fully intended. Tool consists of three scripts written in Python 2.7, setup text file, folder with temporal data and folders containing input or output data. Scripts do not interact with each other but saves and reads data from different folders. User through "LAI_ProbaV_setup.txt" file can specify which of type input or output scripts will read and process. Each script should be run seperetely using [Spyder](https://pythonhosted.org/spyder/) Python environment. 
+![ Graph.1 Structure ](./graphs/structure.jpg)
+#### Input data
+There are three types of input data for the tool:
+* **Reference raster**
+
+This map is a raster .tif that represents the area of interest e.g. a catchment shape. All outputs will be reprojected, resampled and clipped to the exact extend of that raster. This raster should have a name specified in setup file (*LAI_ProbaV_setup.txt*) and be located in the folder *reference_maps*.
+* **Extraction points**
+
+This map is a shapefile .shp that containts points of interest. Coordinates of those points will be used for deriving timeseries of LAI. This raster should have a name specified in the setup file ( *LAI_ProbaV_setup.txt*); be located in the folder *reference_maps* and has the same projection as the reference raster.
+* **ProbaV maps**
+
+ProbaV is a small satellite launched by ESA and managed by VITO that provides almost daily NDVI maps at 100m, 300m and 1km spatial resolution. ProbaV images can be requested (for free) through [VITO Earth Observation portal](https://www.vito-eodata.be/PDF/portal/Application.html#Home). Order should *always* contain two types of images: NDVI maps and SM (status maps) at .tif format delivered using ftp server. Downloading images from the ftp server is handled by the first script *1_LAI_ProbaV_download.py*.
+
+#### Scripts
+They are three main scripts:
+* **1_LAI_ProbaV_download.py**
+
+First script is used for downloading satellite images from ftp server provided by VITO. Adress to this online repository is individually granted and send by email after user succesful ordering satelite data from the [VITO Earth Observation portal](https://www.vito-eodata.be/PDF/portal/Application.html#Home). After providing login, password and name of the repository, the script will download and save all data in the folder ProbaV_download.
+* **2_LAI_ProbaV_processing.py**
+
+Second srcipt calls GDAL functions for processing raster data into format specified by user in *LAI_ProbaV_setup.txt*. Results of this script are called primary outputs and are further explained in chapter 4. Processing script checks radiometric quality of images, discards clouded images (threshold to be set in *LAI_ProbaV_setup.txt*), convert to physical values, reproject,  resample, clipp and adjust extend to match reference raster. This script produces maps at .tif or .asc format suitable for ArcGIS or QGIS. Primary outputs are stored inside *main* folder in subfolders numbered from 1 to 6.
+ 
+* **3_LAI_ProbaV_visualization.py**. 
+
+Third script is focused on producing secondary outputs (more in chapter 4) timeseries or color representation of processed maps. It automatically produces graphs with the same axis or color scale and stores inside *main* folder in subfolders numbered from 7 to 9.
+
+# 4. ProbaV setup file
+---
+
+Interactions & dependencies 
+
+They are 14 possible functions (divided into *Input* and *Output Controls*) of the script that can be either switch on or off. 
+DEPENDECIES GRAPH
+![ Graph.2 Module dependencies ](./graphs/dependencies.jpg)
+
+= = = INPUT DATA = = = = = = = = = = = = = = = =
+|#| name | 	value (defined by user) |
+|-|-|-|
+|[1]|Reference raster|biebrza_30_utm.tif|
+|[2]|Extraction points|points.shp|
+|[3]|Cloud fraction|0.5|
+[4]|Wipe out memory|1
+= = = PRIMARY OUTPUT from 2_LAI_ProbaV_processing.py) = = =
+|#| name | value (defined by user) 
+-|-|-
+[5]|NDVI.tif maps|1
+[6]|LAI.tif maps|1
+[7]|LAI.asc maps|1
+[8]|Monthly LAI.tif maps|1
+[9]|Monthly LAI.asc maps|1
+[10]|WETSPA format|1
+= = = SECONDARY OUTPUT from 3_LAI_ProbaV_visualization.py) = = =
+|#| name | 	value (defined by user) |
+|-|-|-|
+|[11]|LAI.jpg|1|
+|[12]|monthly LAI.jpg|1|
+|[13]|LAI timeseries.csv|1|
+|[14]|LAI timeseries.jpg|1|
+
+This file defines settings nessesary to run the core script of "Tools for Raster data EXploration". The first section cointains a table with three columns:
+"#" (number of item), "name" (name of the element) and "value" (defined by user). The last column can be edited by the User. Valid values are:
+
+#### [1] Reference raster
+>Value type: string. EXAMPLE: "name.tif"
+Specify a name of a reference raster located in "...\\reference_maps"
+WARNING: Specifying a reference raster is MANDATORY to run the script.
+
+#### [2] Extraction point
+> Value type: string. EXAMPLE: "points.shp"
+Specify a name of a vector map containing extration points located in "...\\reference_maps"
+
+#### [3] Cloud fraction
+> Value type: float. Value range from 0.0 to 1.0
+Algorithm will discard any image that has more than certain % of invalid pixels (clouds, shadows, disturbed signal etc)
+0.95 = maximum 95% of all pixels is invalid (clouded)
+0.05 = maximum 5% of all pixels is invalid (clear)
+
+#### [4] Wipe out memory
+#### [5] NDVI.tif maps
+#### [6] LAI.tif maps
+#### [7] LAI.asc maps
+#### [8] Monthly LAI.tif maps
+#### [9] Monthly LAI.asc maps
+#### [10] WETSPA format
+#### [11] LAI.jpg
+#### [12] monthly LAI.jpg
+#### [13] LAI timeseries.csv	
+#### [14] LAI timeseries.jpg
+
+
