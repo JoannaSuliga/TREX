@@ -44,7 +44,7 @@ More recent version of listed packages should be still compatible.
 # 3. Tool structure
 ---
 Tool's folder has a fixed structure that has to be respected and never modified, unless those changes are fully intended. Tool consists of three scripts written in Python 2.7, setup text file, folder with temporal data and folders containing input or output data. Scripts do not interact with each other but saves and reads data from different folders. User through "LAI_ProbaV_setup.txt" file can specify which of type input or output scripts will read and process. Each script should be run seperetely using [Spyder](https://pythonhosted.org/spyder/) Python environment. 
-![ Graph.1 Structure ](./structure.jpg)
+![ Graph.1 Structure ](https://github.com/JoannaSuliga/TREX/blob/master/dependencies.JPG)
 #### Input data
 There are three types of input data for the tool:
 * **Reference raster**
