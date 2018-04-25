@@ -1,10 +1,14 @@
+---
+toc: true
+---
+
 # Tool for Raster data EXploration
 
 **Content**:
-# 1. Intro
-# 2. Installation 
-# 3. Tool's structure
-# 4. ProbaV setup file
+1. Intro
+2. Installation 
+3. Tool's structure
+4. ProbaV setup file
 
 # 1. Intro
 ---
